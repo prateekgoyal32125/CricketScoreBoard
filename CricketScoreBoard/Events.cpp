@@ -40,6 +40,7 @@ ActionResults RunEvent::takeAction(ScoreBoard* scoreBoard) {
 
   if (run->isExtras()) return ActionResults::UN_FAIR_DELIVERY;
 
+  teamRole->incrementBallsBowled();
   playerRole->incrementScore(run);
   playerRole->incrementBallsFaced();
   if ((run->value) & 1) teamRole->changeEnds(false);
@@ -61,6 +62,7 @@ ActionResults WicketEvent::takeAction(ScoreBoard* scoreBoard) {
   Team* battingTeam = scoreBoard->getBattingTeam();
   BattingTeamRole* teamRole =
       ((BattingTeamRole*)(battingTeam->getRole(TeamRoleEnum::BATTING)));
+  teamRole->incrementBallsBowled();
 
   auto playerRef = teamRole->getStricker();
   BatsmanRole* playerRole = ScoreBoardHelper::getBatsManRole(playerRef);

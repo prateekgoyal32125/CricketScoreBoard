@@ -10,7 +10,7 @@
 class BattingTeamRole : public TeamRole {
  protected:
   int score;
-  int oversCompleted;
+  int bowlsBowled;
   int wickets;
   std::list<Player *>::iterator stricker;
   std::list<Player *>::iterator nonStricker;
@@ -18,7 +18,7 @@ class BattingTeamRole : public TeamRole {
 
  public:
   BattingTeamRole(int numberOfPlayers)
-      : TeamRole(numberOfPlayers), score(0), oversCompleted(0), wickets(0) {}
+      : TeamRole(numberOfPlayers), score(0), bowlsBowled(0), wickets(0) {}
 
   void setStricker(std::list<Player *>::iterator newStricker);
   std::list<Player *>::iterator getStricker();
@@ -33,6 +33,8 @@ class BattingTeamRole : public TeamRole {
 
   void incrementScore(RunAction *run);
   int getScore();
+
+  void incrementBallsBowled();
 
   void displayScoreBoard();
 };

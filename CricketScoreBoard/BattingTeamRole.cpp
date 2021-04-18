@@ -19,8 +19,6 @@ void BattingTeamRole::changeEnds(bool isOverCompleted) {
   std::list<Player *>::iterator tmp = stricker;
   stricker = nonStricker;
   nonStricker = tmp;
-
-  if (isOverCompleted) oversCompleted++;
 }
 
 void BattingTeamRole::incrementScore(RunAction *run) {
@@ -31,9 +29,13 @@ int BattingTeamRole::getScore() { return score; }
 int BattingTeamRole::getWickets() { return wickets; }
 void BattingTeamRole::incrementWickets() { ++wickets; }
 
+void BattingTeamRole::incrementBallsBowled() { ++bowlsBowled; }
+
+
 void BattingTeamRole::displayScoreBoard() {
   std::string total = std::to_string(score) + "/" + std::to_string(wickets);
   printf("Total: %s\n", total.c_str());
-  std::string overs = std::to_string(oversCompleted);
+  std::string overs =
+      std::to_string(bowlsBowled / 6) + "." + std::to_string(bowlsBowled % 6);
   printf("Overs: %s\n", overs.c_str());
 }
