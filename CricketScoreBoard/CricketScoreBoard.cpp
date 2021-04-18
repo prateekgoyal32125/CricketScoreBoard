@@ -1,0 +1,107 @@
+// CricketScoreBoard.cpp : This file contains the 'main' function. Program
+// execution begins and ends there.
+//
+
+#include <iostream>
+#include "Events.h"
+#include "Generic.h"
+#include "Player.h"
+#include "ScoreBoard.h"
+#include "Team.h"
+#include "Variadic.h"
+using namespace std;
+
+ScoreBoard *scoreBoard;
+int numberOfPlayers, numberOfOvers;
+
+void getBattingOrder() {
+  Team *battingTeam = scoreBoard->getBattingTeam();
+
+  cout << "Batting Order for " << battingTeam->id << "\n\n";
+  std::list<Player *> players;
+  for (int i = 0; i < numberOfPlayers; i++) {
+    string playerName;
+    cin >> playerName;
+    players.push_back(new Player(playerName, "teamA"));
+  }
+
+  battingTeam->addPlayers(players);
+
+  cout << "Created the  " << battingTeam->id << "\n\n";
+}
+
+void startInning(std::string inningId) {
+  getBattingOrder();
+
+  Team *battingTeam = scoreBoard->getBattingTeam();
+
+  printf("---Starting the %s inning for team %s----\n\n\n ", inningId.c_str(),
+         battingTeam->id.c_str());
+
+  for (int i = 0; i < numberOfOvers; i++) {
+    int ballsBowled = 0;
+    while (ballsBowled < 6) {
+      string action;
+      cin >> action;
+      Event *ev = Event::getEvent(action);
+      ActionResults result = ev->takeAction(scoreBoard);
+
+      if (battingTeam->isAllout()) {
+        break;
+      }
+
+      if (result == ActionResults::FAIR_DELIVERY) {
+        ballsBowled++;
+      }
+    }
+
+    Event *ev = Event::getEvent("OVER_End");
+    ev->takeAction(scoreBoard);
+
+    scoreBoard->displayScoreBoard();
+
+    if (battingTeam->isAllout()) {
+      break;
+    }
+
+  }
+  printf("---Inning ended----\n\n\n ");
+
+}
+
+void displayFinalResults() { 
+    cout << "Game Ended!\n\n\n"; 
+    scoreBoard->displayResult(); 
+}
+
+int main() {
+  cout << "No. of players for each team:\n";
+  cin >> numberOfPlayers;
+
+  cout << "No.of overs :\n";
+  cin >> numberOfOvers;
+
+  scoreBoard =
+      new ScoreBoard("Classic ScoreBoard", "teamA", "teamB", numberOfOvers);
+
+  startInning("1st Inning");
+  Event *ev = Event::getEvent("INNINg_END");
+  ev->takeAction(scoreBoard);
+
+  startInning("2nd Inning");
+
+  displayFinalResults();
+}
+
+// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
+// Debug program: F5 or Debug > Start Debugging menu
+
+// Tips for Getting Started:
+//   1. Use the Solution Explorer window to add/manage files
+//   2. Use the Team Explorer window to connect to source control
+//   3. Use the Output window to see build output and other messages
+//   4. Use the Error List window to view errors
+//   5. Go to Project > Add New Item to create new code files, or Project > Add
+//   Existing Item to add existing code files to the project
+//   6. In the future, to open this project again, go to File > Open > Project
+//   and select the .sln file
