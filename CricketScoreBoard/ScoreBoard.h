@@ -7,24 +7,29 @@
 #include "Generic.h"
 #include "Player.h"
 #include "Team.h"
+#include "ScoreBoardHelper.h"
+
 using namespace std;
 
 class ScoreBoard {
   Team* teamA;
   Team* teamB;
-  int numberOfovers;
+  int numberOfovers, numberOfPlayers;
   string name;
 
  public:
-  ScoreBoard(string name, string teamAName, string teamBName, int numberOfOvers)
+  ScoreBoard(string name, string teamAName, string teamBName, int numberOfOvers,
+             int numberOfPlayers)
       : name(name),
         numberOfovers(numberOfOvers),
-        teamA(new Team(teamAName, true)),
-        teamB(new Team(teamBName, false)) {}
+        numberOfPlayers(numberOfPlayers),
+        teamA(new Team(teamAName, true, numberOfPlayers)),
+        teamB(new Team(teamBName, false, numberOfPlayers)) {}
 
   Team* getBattingTeam();
   Team* getBowlingTeam();
 
+  int getNumberOfPlayers();
   void displayScoreBoard();
 
   void switchInning();

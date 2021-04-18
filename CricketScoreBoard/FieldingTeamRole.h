@@ -14,8 +14,7 @@ class FieldingTeamRole : public TeamRole {
   Extras *extras;
 
  public:
-  FieldingTeamRole(std::list<Player *> &playerList)
-      : TeamRole(playerList), oversBowled(0), wicketsTaken(0) {
+  FieldingTeamRole(int numberOfPlayers) : TeamRole(numberOfPlayers) {
     extras = new Extras();
   }
 

@@ -15,7 +15,7 @@ struct Boundary {
   Boundary() : four(0), six(0) {}
 };
 
-enum class ActionResults { FAIR_DELIVERY, ALL_OUT, UN_FAIR_DELIVERY };
+enum class ActionResults { FAIR_DELIVERY, UN_FAIR_DELIVERY };
 enum class RunType { NON_BOUNDARY, FOUR, SIX, WIDE, BYE, LEG_BYE };
 enum class EventTypes {
   RUN,

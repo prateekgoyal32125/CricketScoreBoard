@@ -3,12 +3,15 @@
 //
 
 #include <iostream>
+
 #include "Events.h"
 #include "Generic.h"
 #include "Player.h"
 #include "ScoreBoard.h"
 #include "Team.h"
 #include "Variadic.h"
+#include "ScoreBoardHelper.h"
+
 using namespace std;
 
 ScoreBoard *scoreBoard;
@@ -22,7 +25,7 @@ void getBattingOrder() {
   for (int i = 0; i < numberOfPlayers; i++) {
     string playerName;
     cin >> playerName;
-    players.push_back(new Player(playerName, "teamA"));
+    players.push_back(new Player(playerName, battingTeam->id));
   }
 
   battingTeam->addPlayers(players);
@@ -38,18 +41,17 @@ void startInning(std::string inningId) {
   printf("---Starting the %s inning for team %s----\n\n\n ", inningId.c_str(),
          battingTeam->id.c_str());
 
+  Event *ev = Event::getEvent("INNING_START_ev");
+  ActionResults result = ev->takeAction(scoreBoard);
+
   for (int i = 0; i < numberOfOvers; i++) {
     int ballsBowled = 0;
-    while (ballsBowled < 6) {
+    while (!ScoreBoardHelper::isAllOut(battingTeam) && ballsBowled < 6) {
       string action;
       cin >> action;
       Event *ev = Event::getEvent(action);
       ActionResults result = ev->takeAction(scoreBoard);
-
-      if (battingTeam->isAllout()) {
-        break;
-      }
-
+      
       if (result == ActionResults::FAIR_DELIVERY) {
         ballsBowled++;
       }
@@ -60,18 +62,16 @@ void startInning(std::string inningId) {
 
     scoreBoard->displayScoreBoard();
 
-    if (battingTeam->isAllout()) {
+    if (ScoreBoardHelper::isAllOut(battingTeam)) {
       break;
     }
-
   }
   printf("---Inning ended----\n\n\n ");
-
 }
 
-void displayFinalResults() { 
-    cout << "Game Ended!\n\n\n"; 
-    scoreBoard->displayResult(); 
+void displayFinalResults() {
+  cout << "Game Ended!\n\n\n";
+  scoreBoard->displayResult();
 }
 
 int main() {
@@ -81,8 +81,8 @@ int main() {
   cout << "No.of overs :\n";
   cin >> numberOfOvers;
 
-  scoreBoard =
-      new ScoreBoard("Classic ScoreBoard", "teamA", "teamB", numberOfOvers);
+  scoreBoard = new ScoreBoard("Classic ScoreBoard", "teamA", "teamB",
+                              numberOfOvers, numberOfPlayers);
 
   startInning("1st Inning");
   Event *ev = Event::getEvent("INNINg_END");

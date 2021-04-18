@@ -151,6 +151,7 @@
     <ClCompile Include="PlayerRole.cpp" />
     <ClCompile Include="RunAction.cpp" />
     <ClCompile Include="ScoreBoard.cpp" />
+    <ClCompile Include="ScoreBoardHelper.cpp" />
     <ClCompile Include="Team.cpp" />
     <ClCompile Include="TeamProfile.cpp" />
     <ClCompile Include="TeamRole.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="RunAction.h" />
     <ClInclude Include="ScoreBoard.h" />
+    <ClInclude Include="ScoreBoardHelper.h" />
     <ClInclude Include="Team.h" />
     <ClInclude Include="TeamProfile.h" />
     <ClInclude Include="TeamRole.h" />
@@ -176,6 +178,9 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CricketScoreBoard.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

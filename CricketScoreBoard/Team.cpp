@@ -1,32 +1,25 @@
 #include "Team.h"
 
 void Team::initRoles() {
-  roles.push_front(new BattingTeamRole(playerList));
+  roles.push_front(new BattingTeamRole(numberOfPlayers));
   roleEnumToRobleObjMap[TeamRoleEnum::BATTING] = roles.begin();
 
-  roles.push_front(new FieldingTeamRole(playerList));
+  roles.push_front(new FieldingTeamRole(numberOfPlayers));
   roleEnumToRobleObjMap[TeamRoleEnum::BOWLING] = roles.begin();
 }
 
+TeamRole *Team::getCurrentRole() { return getRole(currentRoleEnum); }
 void Team::setRole(TeamRoleEnum newRole) { currentRoleEnum = newRole; }
+
 TeamRoleEnum Team::getCurrentRoleEnum() { return currentRoleEnum; }
 
-TeamRole *Team::getCurrentRole() { return getRole(currentRoleEnum); }
 TeamRole *Team::getRole(TeamRoleEnum roleEnum) {
   return *roleEnumToRobleObjMap[roleEnum];
 }
 
-bool Team::isAllout() {
-  return (currentRoleEnum == TeamRoleEnum::BATTING) &&
-         ((BattingTeamRole *)getCurrentRole())->isAllOut();
-}
 
 void Team::addPlayers(const std::list<Player *> &players) {
   playerList.assign(players.begin(), players.end());
-
-  for (auto pr : roleEnumToRobleObjMap) {
-    (*(pr.second))->setPlayerList(playerList);
-  }
 }
 
 void Team::displayScoreBoard() {
@@ -49,11 +42,4 @@ void Team::displayScoreBoard() {
   getCurrentRole()->displayScoreBoard();
 }
 
-int Team::getScore() {
-  return ((BattingTeamRole *)getRole(TeamRoleEnum::BOWLING))->getScore();
-}
-
-int Team::getRemainingWickets() {
-  return ((int)playerList.size() -
-          ((BattingTeamRole *)getRole(TeamRoleEnum::BOWLING))->getWickets());
-}
+std::list<Player*>* Team::getPlayerList() { return &playerList; }

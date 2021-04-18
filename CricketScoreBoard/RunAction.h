@@ -13,7 +13,7 @@ class RunAction : public Action {
       runType = RunType::FOUR;
     }
 
-    if (value == 4) {
+    if (value == 6) {
       runType = RunType::SIX;
     }
   }

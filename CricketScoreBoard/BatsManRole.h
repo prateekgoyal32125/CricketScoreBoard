@@ -32,6 +32,9 @@ class BatsmanRole : public PlayerRole {
 
   void incrementScore(RunAction *run);
 
+  int getBallsFaced();
+  void incrementBallsFaced();
+
   std::tuple<std::string, int, int, int, int> displayScoreBoard(
       std::string name);
 };

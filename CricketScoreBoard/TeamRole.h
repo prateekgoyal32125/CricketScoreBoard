@@ -10,12 +10,11 @@ enum class TeamRoleEnum { BATTING, BOWLING, NONE };
 
 class TeamRole {
  protected:
-  std::list<Player *> playerList;
-
- public:
-  TeamRole(std::list<Player *> &playerList) : playerList(playerList) {}
+  int numberOfPlayers;
+ public: 
+  TeamRole(int numberOfPlayers) : numberOfPlayers(numberOfPlayers) {}
   virtual void displayScoreBoard() = 0;
-  virtual void setPlayerList(std::list<Player *> &newPlayerList);
+  int getNumberOfPlayers();
 };
 
 #endif

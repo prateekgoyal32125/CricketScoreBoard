@@ -28,9 +28,12 @@ class Team {
   TeamProfile *profile;
   TeamRoleEnum currentRoleEnum;
 
+  int numberOfPlayers; 
+
  public:
   TeamId id;
-  Team(string name, bool status) : id(name) {
+  Team(string name, bool status, int numberOfPlayers)
+      : id(name), numberOfPlayers(numberOfPlayers) {
     profile = TeamProfile::getTeam(name);
     initRoles();
     setRole(status ? TeamRoleEnum::BATTING : TeamRoleEnum::BOWLING);
@@ -46,15 +49,11 @@ class Team {
 
   TeamRole *getRole(TeamRoleEnum roleEnum);
 
-  bool isAllout();
-
   void addPlayers(const std::list<Player *> &players);
 
   void displayScoreBoard();
 
-  int getScore();
-
-  int getRemainingWickets();
+  std::list<Player *>* getPlayerList();
 };
 
 #endif

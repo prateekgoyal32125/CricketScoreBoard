@@ -35,17 +35,23 @@ void ScoreBoard::switchInning() {
 }
 
 void ScoreBoard::displayResult() {
-  Team* currentBattingTeam = getBattingTeam();
-  Team* currentBowlingTeam = getBowlingTeam();
-  cout << currentBattingTeam->getScore() << endl;
-  if (currentBattingTeam->getScore() < currentBowlingTeam->getScore()) {
-    printf("Result: %s won the match by %d runs",
-           currentBowlingTeam->id.c_str(),
-           (currentBowlingTeam->getScore() - currentBattingTeam->getScore()));
-  } else if (currentBattingTeam->getScore() > currentBowlingTeam->getScore()) {
+  BattingTeamRole* currentBattingTeamRole =
+      (BattingTeamRole*)getBattingTeam()->getRole(TeamRoleEnum::BATTING);
+  BattingTeamRole* currentBowlingTeamRole =
+      (BattingTeamRole*)getBowlingTeam()->getRole(TeamRoleEnum::BATTING);
+
+  if (currentBattingTeamRole->getScore() < currentBowlingTeamRole->getScore()) {
+    printf("Result: %s won the match by %d runs", getBowlingTeam()->id.c_str(),
+           (currentBowlingTeamRole->getScore() -
+            currentBattingTeamRole->getScore()));
+  } else if (currentBattingTeamRole->getScore() >
+             currentBowlingTeamRole->getScore()) {
     printf("Result: %s won the match by %d wickets",
-           currentBattingTeam->id.c_str(),
-           currentBattingTeam->getRemainingWickets());
+           getBattingTeam()->id.c_str(),
+           ScoreBoardHelper::getWicketsRemaining(currentBattingTeamRole));
   } else {
+    printf("Match tied!!");
   }
 }
+
+int ScoreBoard::getNumberOfPlayers() { return numberOfPlayers; };

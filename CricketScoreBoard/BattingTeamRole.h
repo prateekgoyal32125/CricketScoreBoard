@@ -17,28 +17,22 @@ class BattingTeamRole : public TeamRole {
   Boundary *boundary = new Boundary();
 
  public:
-  BattingTeamRole(std::list<Player *> &playerList)
-      : TeamRole(playerList), score(0), oversCompleted(0), wickets(0) {}
+  BattingTeamRole(int numberOfPlayers)
+      : TeamRole(numberOfPlayers), score(0), oversCompleted(0), wickets(0) {}
 
-  virtual void setPlayerList(std::list<Player *> &newPlayerList);
   void setStricker(std::list<Player *>::iterator newStricker);
+  std::list<Player *>::iterator getStricker();
 
   void setNonStricker(std::list<Player *>::iterator newNonStricker);
+  std::list<Player *>::iterator getNonStricker();
 
-  BatsmanRole *getBatsManRole(std::list<Player *>::iterator playerRef);
-  std::list<Player *>::iterator nextStricker();
-
-  bool isAllOut();
-
-  ActionResults handleOut();
+  int getWickets();
+  void incrementWickets();
 
   void changeEnds(bool isOverCompleted);
 
   void incrementScore(RunAction *run);
-
   int getScore();
-
-  int getWickets();
 
   void displayScoreBoard();
 };

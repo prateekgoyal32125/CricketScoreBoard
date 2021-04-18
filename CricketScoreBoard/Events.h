@@ -4,7 +4,11 @@
 
 #include "Generic.h"
 #include "RunAction.h"
+#include "BatsManRole.h"
+#include "Player.h"
 
+class BatsmanRole;
+class Player;
 class ScoreBoard;
 class RunEvent;
 
@@ -55,4 +59,10 @@ class WicketEvent : public Event {
   void getEventType();
 };
 
+
+class InningStartEvent : public Event {
+ public:
+  ActionResults takeAction(ScoreBoard* scoreBoard);
+  void getEventType();
+};
 #endif
