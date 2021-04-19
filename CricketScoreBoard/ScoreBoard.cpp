@@ -55,3 +55,7 @@ void ScoreBoard::displayResult() {
 }
 
 int ScoreBoard::getNumberOfPlayers() { return numberOfPlayers; };
+
+void ScoreBoard::setIsFirstHalfComplete() { isFirstHalfComplete = true;  }
+
+bool ScoreBoard::getIsFirstHalfComplete() { return isFirstHalfComplete; }

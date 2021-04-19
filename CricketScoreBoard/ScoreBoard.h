@@ -15,6 +15,7 @@ class ScoreBoard {
   Team* teamA;
   Team* teamB;
   int numberOfovers, numberOfPlayers;
+  bool isFirstHalfComplete;
   string name;
 
  public:
@@ -24,13 +25,18 @@ class ScoreBoard {
         numberOfovers(numberOfOvers),
         numberOfPlayers(numberOfPlayers),
         teamA(new Team(teamAName, true, numberOfPlayers)),
-        teamB(new Team(teamBName, false, numberOfPlayers)) {}
+        teamB(new Team(teamBName, false, numberOfPlayers)),
+        isFirstHalfComplete(false) {}
 
   Team* getBattingTeam();
   Team* getBowlingTeam();
 
+  void setIsFirstHalfComplete();
+  bool getIsFirstHalfComplete();
+
   int getNumberOfPlayers();
   void displayScoreBoard();
+
 
   void switchInning();
 

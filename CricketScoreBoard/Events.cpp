@@ -97,6 +97,7 @@ void WicketEvent::getEventType() { cout << "its a Wicket event\n"; }
 
 ActionResults InningEndEvent::takeAction(ScoreBoard* scoreBoard) {
   scoreBoard->switchInning();
+  scoreBoard->setIsFirstHalfComplete();
   return ActionResults::FAIR_DELIVERY;
 };
 

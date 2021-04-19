@@ -46,7 +46,7 @@ void startInning(std::string inningId) {
 
   for (int i = 0; i < numberOfOvers; i++) {
     int ballsBowled = 0;
-    while (!ScoreBoardHelper::isAllOut(battingTeam) && ballsBowled < 6) {
+    while (!ScoreBoardHelper::isInningOver(scoreBoard) && ballsBowled < 6) {
       string action;
       cin >> action;
       Event *ev = Event::getEvent(action);
@@ -62,7 +62,7 @@ void startInning(std::string inningId) {
 
     scoreBoard->displayScoreBoard();
 
-    if (ScoreBoardHelper::isAllOut(battingTeam)) {
+    if (ScoreBoardHelper::isInningOver(scoreBoard)) {
       break;
     }
   }
